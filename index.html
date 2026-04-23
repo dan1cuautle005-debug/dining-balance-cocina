@@ -150,7 +150,7 @@
 </div>
 
 <script>
-const SHEET_ID      = '782392455058-5ournc7fhh0a202hn8lpjfkcgbtdvjpi.apps.googleusercontent.com';
+const SHEET_ID      = '12-FreCa2YIrelnSWumYRHneh9HygGl6DOQcjNzsirZQ';
 const API_KEY       = 'AIzaSyC-UQ4-Ch9u0z_9RdGd3FH9hpaoEjssJ20';
 const SHEET_PEDIDOS = 'Pedidos';
 
@@ -228,7 +228,7 @@ async function loadCocina(){
       </div>`;
     }).join('');
   }catch(e){
-    grid.innerHTML='<div class="loading-overlay" style="color:var(--accent2)">⚠️ Error al cargar. Verifica credenciales.</div>';
+    grid.innerHTML='<div class="loading-overlay" style="color:var(--accent2)">⚠️ Error: '+e.message+'</div>';
     console.error(e);
   }
 }
