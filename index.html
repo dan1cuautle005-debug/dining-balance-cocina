@@ -236,6 +236,11 @@ async function loadCocina(){
 function marcarListo(num){
   const c=document.getElementById('card-'+num);
   if(c){ c.style.opacity='.3'; c.style.pointerEvents='none'; }
+  fetch('https://n8n-production-48aa.up.railway.app/webhook/pedido-listo', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({id_pedido: num})
+  });
   setTimeout(()=>loadCocina(),1000);
 }
 
