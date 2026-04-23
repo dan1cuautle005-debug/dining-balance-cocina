@@ -303,4 +303,53 @@ async function loadReportes() {
       : '<div style="color:var(--muted);font-size:.85rem">Sin pedidos hoy</div>';
 
     const ef=hoy.filter(r=>(r.metodo||r.Metodo||'').toLowerCase().includes('efectivo')).length;
-    const ln=hoy.filter(r=>(r.metodo||r.Metodo||'').toLowerCase(
+    const ln=hoy.filter(r=>(r.metodo||r.Metodo||'').toLowerCase().includes('linea')).length;
+    const t=ef+ln||1; const circ=2*Math.PI*48;
+    document.getElementById('donut-efectivo').setAttribute('stroke-dasharray',`${ef/t*circ} ${circ}`);
+    const dlEl=document.getElementById('donut-linea');
+    dlEl.setAttribute('stroke-dasharray',`${ln/t*circ} ${circ}`);
+    dlEl.setAttribute('stroke-dashoffset',-(ef/t*circ));
+    document.getElementById('leg-efectivo').textContent=`Efectivo — ${ef} (${Math.round(ef/t*100)}%)`;
+    document.getElementById('leg-linea').textContent   =`En línea — ${ln} (${Math.round(ln/t*100)}%)`;
+
+    const dias=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+    const wd=[];
+    for(let i=6;i>=0;i--){
+      const d=new Date(); d.setDate(d.getDate()-i);
+      const iso=d.toISOString().slice(0,10);
+      const cnt=rows.filter(r=>(r.fecha||r.Fecha||'').slice(0,10)===iso).length;
+      wd.push({l:dias[d.getDay()],c:cnt,hoy:i===0});
+    }
+    const mw=Math.max(...wd.map(x=>x.c),1);
+    document.getElementById('history-bars').innerHTML=wd.map(x=>`
+      <div class="h-bar-col">
+        <div class="h-val">${x.c||''}</div>
+        <div class="h-bar" style="height:${Math.max(x.c/mw*90,4)}px;${x.hoy?'opacity:1':''}"></div>
+        <div class="h-day">${x.l}</div>
+      </div>`).join('');
+
+    document.getElementById('history-table-body').innerHTML = hoy.length
+      ? hoy.slice().reverse().map((r,i)=>{
+          const n=r.id||r.ID||`${i+1}`;
+          const es=(r.estado||r.Estado||'pendiente').toLowerCase();
+          return `<tr>
+            <td class="td-mono">${n}</td>
+            <td>${r.telefono||r.Telefono||'—'}</td>
+            <td style="font-size:.8rem;color:var(--muted)">${(r.platillos||r.Platillos||'—').slice(0,40)}</td>
+            <td class="td-mono" style="color:var(--accent)">$${parseFloat(r.total||r.Total||0).toFixed(2)}</td>
+            <td>${r.metodo||r.Metodo||'—'}</td>
+            <td class="td-mono">${tStr(r.fecha||r.Fecha)}</td>
+            <td><span class="badge ${es==='listo'?'efectivo':'linea'}">${es}</span></td>
+          </tr>`;
+        }).join('')
+      : '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:24px">Sin pedidos hoy</td></tr>';
+  } catch(e) { console.error(e); }
+}
+
+function loadAll() { loadCocina(); loadReportes(); }
+loadAll();
+setInterval(loadCocina,  30000);
+setInterval(loadReportes, 60000);
+</script>
+</body>
+</html>
