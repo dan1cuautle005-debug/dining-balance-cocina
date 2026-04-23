@@ -540,10 +540,9 @@
         mode: 'no-cors'
       });
 
-      pedidosEntregados.add(idPedido);
+    pedidosEntregados.add(idPedido);
       showToast(`Pedido ${idPedido} marcado como listo`);
 
-      // Quitar card con animación
       const card = document.getElementById(`card-${idPedido}`);
       if (card) {
         card.style.transition = 'all 0.4s ease';
@@ -560,6 +559,8 @@
       btn.innerHTML = '✅ LISTO';
     }
   }
+
+  setInterval(actualizarTiempos, 60000);
 
   // Actualizar contadores del header
   function actualizarContadores() {
@@ -610,6 +611,7 @@
             <div class="order-time">
               <span>${formatTime(pedido.timestamp)}</span>
               <span class="elapsed" id="elapsed-${pedido.id_pedido}">${elapsed(pedido.timestamp)}</span>
+              ${ (() => { pedidoTimestamps[pedido.id_pedido] = pedido.timestamp; return ''; })() }
             </div>
           </div>
         </div>
@@ -660,15 +662,16 @@
     }
   }
 
-  // Actualizar tiempos transcurridos
+ const pedidoTimestamps = {};
+
   function actualizarTiempos() {
-    document.querySelectorAll('.order-card').forEach(card => {
-      const id = card.id.replace('card-', '');
+    Object.entries(pedidoTimestamps).forEach(([id, ts]) => {
       const el = document.getElementById(`elapsed-${id}`);
-      // los tiempos se actualizan en el próximo fetch
+      if (el) el.textContent = elapsed(ts);
     });
   }
 
+  setInterval(actualizarTiempos, 60000);
   // Fetch principal
   async function fetchData() {
     try {
