@@ -7,74 +7,37 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0f0e0c;
-    --surface: #1a1916;
-    --surface2: #242220;
-    --border: #2e2c29;
-    --accent: #f5a623;
-    --accent2: #e8534a;
-    --green: #4caf7d;
-    --blue: #5b9cf6;
-    --text: #f0ede8;
-    --muted: #7a756d;
-    --font: 'Syne', sans-serif;
-    --mono: 'DM Mono', monospace;
+    --bg: #0f0e0c; --surface: #1a1916; --surface2: #242220; --border: #2e2c29;
+    --accent: #f5a623; --accent2: #e8534a; --green: #4caf7d; --blue: #5b9cf6;
+    --text: #f0ede8; --muted: #7a756d; --font: 'Syne', sans-serif; --mono: 'DM Mono', monospace;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: var(--bg); color: var(--text); font-family: var(--font); min-height: 100vh; }
-
-  header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 18px 28px; border-bottom: 1px solid var(--border);
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(15,14,12,.92); backdrop-filter: blur(12px);
-  }
+  header { display: flex; align-items: center; justify-content: space-between; padding: 18px 28px; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; background: rgba(15,14,12,.92); backdrop-filter: blur(12px); }
   .logo { font-size: 1.1rem; font-weight: 800; letter-spacing: -.5px; color: var(--accent); }
   .logo span { color: var(--text); }
-  .tabs {
-    display: flex; gap: 4px; background: var(--surface);
-    padding: 4px; border-radius: 10px; border: 1px solid var(--border);
-  }
-  .tab {
-    padding: 8px 20px; border-radius: 7px; font-family: var(--font);
-    font-size: .85rem; font-weight: 600; cursor: pointer; border: none;
-    background: transparent; color: var(--muted); transition: all .2s;
-  }
+  .tabs { display: flex; gap: 4px; background: var(--surface); padding: 4px; border-radius: 10px; border: 1px solid var(--border); }
+  .tab { padding: 8px 20px; border-radius: 7px; font-family: var(--font); font-size: .85rem; font-weight: 600; cursor: pointer; border: none; background: transparent; color: var(--muted); transition: all .2s; }
   .tab.active { background: var(--accent); color: #0f0e0c; }
   .tab:hover:not(.active) { color: var(--text); }
   #clock { font-family: var(--mono); font-size: .85rem; color: var(--muted); }
-
   .page { display: none; padding: 24px 28px; }
   .page.active { display: block; }
-
   .stats-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 24px; }
-  .stat-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 12px; padding: 16px 20px; position: relative; overflow: hidden;
-  }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; }
   .stat-label { font-size: .72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
   .stat-value { font-size: 2rem; font-weight: 800; line-height: 1; }
-  .stat-value.green { color: var(--green); }
-  .stat-value.orange { color: var(--accent); }
-  .stat-value.blue { color: var(--blue); }
-
+  .stat-value.green { color: var(--green); } .stat-value.orange { color: var(--accent); } .stat-value.blue { color: var(--blue); }
   #orders-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(300px,1fr)); gap: 16px; }
-  .order-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 14px; overflow: hidden; transition: transform .15s, border-color .2s;
-    animation: cardIn .3s ease both;
-  }
+  .order-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; transition: transform .15s, border-color .2s; animation: cardIn .3s ease both; }
   .order-card:hover { transform: translateY(-2px); border-color: var(--accent); }
   @keyframes cardIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
-  .order-header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 16px; border-bottom: 1px solid var(--border);
-  }
+  .order-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--border); }
   .order-num { font-family: var(--mono); font-size: .78rem; color: var(--muted); }
   .order-phone { font-weight: 700; font-size: .95rem; }
   .badge { font-size: .7rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; letter-spacing: .5px; text-transform: uppercase; }
   .badge.efectivo { background: rgba(76,175,125,.15); color: var(--green); border: 1px solid rgba(76,175,125,.3); }
-  .badge.linea    { background: rgba(91,156,246,.15); color: var(--blue);  border: 1px solid rgba(91,156,246,.3); }
+  .badge.linea { background: rgba(91,156,246,.15); color: var(--blue); border: 1px solid rgba(91,156,246,.3); }
   .order-body { padding: 14px 16px; }
   .platillo-row { display: flex; justify-content: space-between; font-size: .88rem; padding: 4px 0; border-bottom: 1px dashed var(--border); }
   .platillo-row:last-child { border: none; }
@@ -82,14 +45,8 @@
   .order-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 10px; }
   .order-total { font-family: var(--mono); font-weight: 500; font-size: 1rem; color: var(--accent); }
   .order-time { font-size: .75rem; color: var(--muted); }
-  .btn-listo {
-    padding: 8px 18px; background: var(--green); color: #0f0e0c;
-    border: none; border-radius: 8px; font-family: var(--font); font-weight: 700;
-    font-size: .82rem; cursor: pointer; transition: opacity .2s, transform .1s;
-  }
-  .btn-listo:hover { opacity: .85; transform: scale(.98); }
+  .btn-listo { padding: 8px 18px; background: var(--green); color: #0f0e0c; border: none; border-radius: 8px; font-family: var(--font); font-weight: 700; font-size: .82rem; cursor: pointer; }
   .empty-state { grid-column: 1/-1; text-align: center; padding: 80px 20px; color: var(--muted); }
-
   .report-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 28px; }
   .charts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
   .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
@@ -166,10 +123,8 @@
       <div class="donut-wrap">
         <svg width="120" height="120" viewBox="0 0 120 120">
           <circle cx="60" cy="60" r="48" fill="none" stroke="var(--surface2)" stroke-width="18"/>
-          <circle cx="60" cy="60" r="48" fill="none" stroke="var(--green)" stroke-width="18"
-            stroke-dasharray="0 302" stroke-linecap="round" transform="rotate(-90 60 60)" id="donut-efectivo" style="transition:stroke-dasharray .8s"/>
-          <circle cx="60" cy="60" r="48" fill="none" stroke="var(--blue)" stroke-width="18"
-            stroke-dasharray="0 302" stroke-linecap="round" transform="rotate(-90 60 60)" id="donut-linea" style="transition:stroke-dasharray .8s"/>
+          <circle cx="60" cy="60" r="48" fill="none" stroke="var(--green)" stroke-width="18" stroke-dasharray="0 302" stroke-linecap="round" transform="rotate(-90 60 60)" id="donut-efectivo" style="transition:stroke-dasharray .8s"/>
+          <circle cx="60" cy="60" r="48" fill="none" stroke="var(--blue)" stroke-width="18" stroke-dasharray="0 302" stroke-linecap="round" transform="rotate(-90 60 60)" id="donut-linea" style="transition:stroke-dasharray .8s"/>
         </svg>
         <div class="donut-legend">
           <div class="legend-row"><div class="legend-dot" style="background:var(--green)"></div><span id="leg-efectivo">Efectivo — —</span></div>
@@ -195,61 +150,68 @@
 </div>
 
 <script>
-// ══ CONFIGURACIÓN ══════════════════════════════
 const SHEET_ID      = '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms';
 const API_KEY       = 'AIzaSyC-UQ4-Ch9u0z_9RdGd3FH9hpaoEjssJ20';
 const SHEET_PEDIDOS = 'Pedidos';
-// ═══════════════════════════════════════════════
 
-async function fetchSheet(h) {
-  const r = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${h}!A:Z?key=${API_KEY}`);
-  const d = await r.json();
-  const rows = d.values || [];
-  if (rows.length < 2) return [];
-  const hd = rows[0];
-  return rows.slice(1).map(row => { const o = {}; hd.forEach((k,i) => o[k] = row[i]||''); return o; });
+function col(r,...keys){ for(const k of keys) if(r[k]!==undefined&&r[k]!=='') return r[k]; return ''; }
+function getFecha(r)  { return col(r,'timestamp','fecha','Fecha'); }
+function getTel(r)    { return col(r,'telefono','Telefono'); }
+function getPlats(r)  { return col(r,'platillos','Platillos'); }
+function getTotal(r)  { return parseFloat(col(r,'total','Total')||0); }
+function getMetodo(r) { return col(r,'metodo_pago','metodo','Metodo'); }
+function getEstado(r) { return col(r,'estado','Estado'); }
+function getId(r)     { return col(r,'id_pedido','id','ID'); }
+
+async function fetchSheet(h){
+  const r=await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${h}!A:Z?key=${API_KEY}`);
+  const d=await r.json();
+  const rows=d.values||[];
+  if(rows.length<2) return [];
+  const hd=rows[0];
+  return rows.slice(1).map(row=>{ const o={}; hd.forEach((k,i)=>o[k]=row[i]||''); return o; });
 }
 
-function todayISO() { return new Date().toISOString().slice(0,10); }
-function isToday(r) { return (r.fecha||r.Fecha||'').slice(0,10) === todayISO(); }
-function tStr(ts) {
-  if (!ts) return '—';
-  const d = new Date(ts);
-  return isNaN(d) ? ts.slice(11,16)||ts : d.toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'});
+function todayISO(){ return new Date().toISOString().slice(0,10); }
+function isToday(r){ return getFecha(r).slice(0,10)===todayISO(); }
+function tStr(ts){
+  if(!ts) return '—';
+  const d=new Date(ts);
+  return isNaN(d)?ts.slice(11,16)||ts:d.toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'});
 }
 
-setInterval(() => { document.getElementById('clock').textContent = new Date().toLocaleTimeString('es-MX'); }, 1000);
+setInterval(()=>{ document.getElementById('clock').textContent=new Date().toLocaleTimeString('es-MX'); },1000);
 
-function switchTab(n) {
-  document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active',(i===0&&n==='cocina')||(i===1&&n==='reportes')));
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+function switchTab(n){
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',(i===0&&n==='cocina')||(i===1&&n==='reportes')));
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+n).classList.add('active');
 }
 
-async function loadCocina() {
-  const grid = document.getElementById('orders-grid');
-  try {
-    const rows = await fetchSheet(SHEET_PEDIDOS);
-    const pending    = rows.filter(r => isToday(r) && (r.estado||r.Estado||'').toLowerCase() !== 'listo');
-    const completados = rows.filter(r => isToday(r) && (r.estado||r.Estado||'').toLowerCase() === 'listo');
-    const efectivo   = rows.filter(r => isToday(r) && (r.metodo||r.Metodo||'').toLowerCase().includes('efectivo'));
-    const linea      = rows.filter(r => isToday(r) && (r.metodo||r.Metodo||'').toLowerCase().includes('linea'));
-    document.getElementById('stat-pendientes').textContent  = pending.length;
-    document.getElementById('stat-completados').textContent = completados.length;
-    document.getElementById('stat-efectivo').textContent    = efectivo.length;
-    document.getElementById('stat-linea').textContent       = linea.length;
-    if (!pending.length) { grid.innerHTML = '<div class="empty-state"><div style="font-size:3rem;opacity:.4;margin-bottom:12px">✅</div><div>Sin pedidos pendientes</div></div>'; return; }
-    grid.innerHTML = pending.map((p,i) => {
-      const num   = p.id||p.ID||`#${i+1}`;
-      const phone = p.telefono||p.Telefono||'—';
-      const plats = p.platillos||p.Platillos||'';
-      const total = parseFloat(p.total||p.Total||0).toFixed(2);
-      const esLn  = (p.metodo||p.Metodo||'').toLowerCase().includes('linea');
-      const hora  = tStr(p.fecha||p.Fecha);
-      const items = plats.split(',').map(s => {
-        const m = s.trim().match(/^(\d+)x?\s+(.+)$/);
-        return m ? `<div class="platillo-row"><span><span class="platillo-qty">${m[1]}×</span>${m[2]}</span></div>`
-                 : `<div class="platillo-row"><span>${s.trim()}</span></div>`;
+async function loadCocina(){
+  const grid=document.getElementById('orders-grid');
+  try{
+    const rows=await fetchSheet(SHEET_PEDIDOS);
+    const pending    =rows.filter(r=>isToday(r)&&!['listo','entregado'].includes(getEstado(r).toLowerCase()));
+    const completados=rows.filter(r=>isToday(r)&&['listo','entregado'].includes(getEstado(r).toLowerCase()));
+    const efectivo   =rows.filter(r=>isToday(r)&&getMetodo(r).toLowerCase().includes('efectivo'));
+    const linea      =rows.filter(r=>isToday(r)&&getMetodo(r).toLowerCase().includes('linea'));
+    document.getElementById('stat-pendientes').textContent =pending.length;
+    document.getElementById('stat-completados').textContent=completados.length;
+    document.getElementById('stat-efectivo').textContent   =efectivo.length;
+    document.getElementById('stat-linea').textContent      =linea.length;
+    if(!pending.length){ grid.innerHTML='<div class="empty-state"><div style="font-size:3rem;opacity:.4;margin-bottom:12px">✅</div><div>Sin pedidos pendientes</div></div>'; return; }
+    grid.innerHTML=pending.map((p,i)=>{
+      const num  =getId(p)||`#${i+1}`;
+      const phone=getTel(p)||'—';
+      const plats=getPlats(p);
+      const total=getTotal(p).toFixed(2);
+      const esLn =getMetodo(p).toLowerCase().includes('linea');
+      const hora =tStr(getFecha(p));
+      const items=plats.split(',').map(s=>{
+        const m=s.trim().match(/^(\d+)x?\s+(.+)$/);
+        return m?`<div class="platillo-row"><span><span class="platillo-qty">${m[1]}×</span>${m[2]}</span></div>`
+                :`<div class="platillo-row"><span>${s.trim()}</span></div>`;
       }).join('');
       return `<div class="order-card" id="card-${num}">
         <div class="order-header">
@@ -265,45 +227,40 @@ async function loadCocina() {
         </div>
       </div>`;
     }).join('');
-  } catch(e) {
-    grid.innerHTML = '<div class="loading-overlay" style="color:var(--accent2)">⚠️ Error al cargar. Verifica SHEET_ID y API_KEY.</div>';
+  }catch(e){
+    grid.innerHTML='<div class="loading-overlay" style="color:var(--accent2)">⚠️ Error al cargar. Verifica credenciales.</div>';
+    console.error(e);
   }
 }
 
-function marcarListo(num) {
-  const c = document.getElementById('card-'+num);
-  if (c) { c.style.opacity='.3'; c.style.pointerEvents='none'; }
-  // Aquí conectas tu webhook de n8n:
-  // fetch('https://n8n-production-48aa.up.railway.app/webhook/listo', { method:'POST', body: JSON.stringify({id:num}) })
-  setTimeout(() => loadCocina(), 1000);
+function marcarListo(num){
+  const c=document.getElementById('card-'+num);
+  if(c){ c.style.opacity='.3'; c.style.pointerEvents='none'; }
+  setTimeout(()=>loadCocina(),1000);
 }
 
-async function loadReportes() {
-  try {
-    const rows = await fetchSheet(SHEET_PEDIDOS);
-    const hoy = rows.filter(isToday);
-    const totalV = hoy.reduce((s,r) => s + parseFloat(r.total||r.Total||0), 0);
-    const tp = hoy.length ? totalV/hoy.length : 0;
-    const horas = {};
-    hoy.forEach(r => { const h=(r.fecha||r.Fecha||'').slice(11,13)||'?'; horas[h]=(horas[h]||0)+1; });
-    const hp = Object.entries(horas).sort((a,b)=>b[1]-a[1])[0];
-    document.getElementById('r-total').textContent  = hoy.length;
-    document.getElementById('r-ventas').textContent = `$${totalV.toFixed(0)}`;
-    document.getElementById('r-ticket').textContent = `$${tp.toFixed(0)}`;
-    document.getElementById('r-hora').textContent   = hp ? `${hp[0]}:00` : '—';
-
-    const pc = {};
-    hoy.forEach(r => (r.platillos||r.Platillos||'').split(',').forEach(p => {
-      const n = p.trim().replace(/^\d+x?\s+/,''); if(n) pc[n]=(pc[n]||0)+1;
-    }));
-    const top = Object.entries(pc).sort((a,b)=>b[1]-a[1]).slice(0,6);
-    const mx  = top[0]?.[1]||1;
-    document.getElementById('bar-platillos').innerHTML = top.length
-      ? top.map(([n,c])=>`<div class="bar-row"><div class="bar-name" title="${n}">${n}</div><div class="bar-track"><div class="bar-fill" style="width:${(c/mx*100).toFixed(0)}%"></div></div><div class="bar-count">${c}</div></div>`).join('')
-      : '<div style="color:var(--muted);font-size:.85rem">Sin pedidos hoy</div>';
-
-    const ef=hoy.filter(r=>(r.metodo||r.Metodo||'').toLowerCase().includes('efectivo')).length;
-    const ln=hoy.filter(r=>(r.metodo||r.Metodo||'').toLowerCase().includes('linea')).length;
+async function loadReportes(){
+  try{
+    const rows=await fetchSheet(SHEET_PEDIDOS);
+    const hoy=rows.filter(isToday);
+    const totalV=hoy.reduce((s,r)=>s+getTotal(r),0);
+    const tp=hoy.length?totalV/hoy.length:0;
+    const horas={};
+    hoy.forEach(r=>{ const h=getFecha(r).slice(11,13)||'?'; horas[h]=(horas[h]||0)+1; });
+    const hp=Object.entries(horas).sort((a,b)=>b[1]-a[1])[0];
+    document.getElementById('r-total').textContent =hoy.length;
+    document.getElementById('r-ventas').textContent=`$${totalV.toFixed(0)}`;
+    document.getElementById('r-ticket').textContent=`$${tp.toFixed(0)}`;
+    document.getElementById('r-hora').textContent  =hp?`${hp[0]}:00`:'—';
+    const pc={};
+    hoy.forEach(r=>getPlats(r).split(',').forEach(p=>{ const n=p.trim().replace(/^\d+x?\s+/,''); if(n) pc[n]=(pc[n]||0)+1; }));
+    const top=Object.entries(pc).sort((a,b)=>b[1]-a[1]).slice(0,6);
+    const mx=top[0]?.[1]||1;
+    document.getElementById('bar-platillos').innerHTML=top.length
+      ?top.map(([n,c])=>`<div class="bar-row"><div class="bar-name">${n}</div><div class="bar-track"><div class="bar-fill" style="width:${(c/mx*100).toFixed(0)}%"></div></div><div class="bar-count">${c}</div></div>`).join('')
+      :'<div style="color:var(--muted)">Sin pedidos hoy</div>';
+    const ef=hoy.filter(r=>getMetodo(r).toLowerCase().includes('efectivo')).length;
+    const ln=hoy.filter(r=>getMetodo(r).toLowerCase().includes('linea')).length;
     const t=ef+ln||1; const circ=2*Math.PI*48;
     document.getElementById('donut-efectivo').setAttribute('stroke-dasharray',`${ef/t*circ} ${circ}`);
     const dlEl=document.getElementById('donut-linea');
@@ -311,13 +268,12 @@ async function loadReportes() {
     dlEl.setAttribute('stroke-dashoffset',-(ef/t*circ));
     document.getElementById('leg-efectivo').textContent=`Efectivo — ${ef} (${Math.round(ef/t*100)}%)`;
     document.getElementById('leg-linea').textContent   =`En línea — ${ln} (${Math.round(ln/t*100)}%)`;
-
     const dias=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
     const wd=[];
     for(let i=6;i>=0;i--){
       const d=new Date(); d.setDate(d.getDate()-i);
       const iso=d.toISOString().slice(0,10);
-      const cnt=rows.filter(r=>(r.fecha||r.Fecha||'').slice(0,10)===iso).length;
+      const cnt=rows.filter(r=>getFecha(r).slice(0,10)===iso).length;
       wd.push({l:dias[d.getDay()],c:cnt,hoy:i===0});
     }
     const mw=Math.max(...wd.map(x=>x.c),1);
@@ -327,26 +283,24 @@ async function loadReportes() {
         <div class="h-bar" style="height:${Math.max(x.c/mw*90,4)}px;${x.hoy?'opacity:1':''}"></div>
         <div class="h-day">${x.l}</div>
       </div>`).join('');
-
-    document.getElementById('history-table-body').innerHTML = hoy.length
-      ? hoy.slice().reverse().map((r,i)=>{
-          const n=r.id||r.ID||`${i+1}`;
-          const es=(r.estado||r.Estado||'pendiente').toLowerCase();
-          return `<tr>
-            <td class="td-mono">${n}</td>
-            <td>${r.telefono||r.Telefono||'—'}</td>
-            <td style="font-size:.8rem;color:var(--muted)">${(r.platillos||r.Platillos||'—').slice(0,40)}</td>
-            <td class="td-mono" style="color:var(--accent)">$${parseFloat(r.total||r.Total||0).toFixed(2)}</td>
-            <td>${r.metodo||r.Metodo||'—'}</td>
-            <td class="td-mono">${tStr(r.fecha||r.Fecha)}</td>
-            <td><span class="badge ${es==='listo'?'efectivo':'linea'}">${es}</span></td>
-          </tr>`;
-        }).join('')
-      : '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:24px">Sin pedidos hoy</td></tr>';
-  } catch(e) { console.error(e); }
+    document.getElementById('history-table-body').innerHTML=hoy.length
+      ?hoy.slice().reverse().map((r,i)=>{
+        const es=getEstado(r).toLowerCase()||'pendiente';
+        return `<tr>
+          <td class="td-mono">${getId(r)||i+1}</td>
+          <td>${getTel(r)||'—'}</td>
+          <td style="font-size:.8rem;color:var(--muted)">${getPlats(r).slice(0,40)||'—'}</td>
+          <td class="td-mono" style="color:var(--accent)">$${getTotal(r).toFixed(2)}</td>
+          <td>${getMetodo(r)||'—'}</td>
+          <td class="td-mono">${tStr(getFecha(r))}</td>
+          <td><span class="badge ${['listo','entregado'].includes(es)?'efectivo':'linea'}">${es}</span></td>
+        </tr>`;
+      }).join('')
+      :'<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:24px">Sin pedidos hoy</td></tr>';
+  }catch(e){ console.error(e); }
 }
 
-function loadAll() { loadCocina(); loadReportes(); }
+function loadAll(){ loadCocina(); loadReportes(); }
 loadAll();
 setInterval(loadCocina,  30000);
 setInterval(loadReportes, 60000);
